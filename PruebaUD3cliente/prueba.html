@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCommerce - Calculadora de Envíos</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Asegura que el padding no rompa el ancho */
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        #btn-calcular {
+            background-color: #007bff;
+            color: white;
+        }
+        #btn-limpiar {
+            background-color: #6c757d;
+            color: white;
+        }
+        #btn-calcular:hover { background-color: #0056b3; }
+        #btn-limpiar:hover { background-color: #545b62; }
+
+        /* Zonas dinámicas */
+        #mensaje-estado {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none; /* Se mostrará con JS */
+            text-align: center;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+
+        #resultado-area {
+            margin-top: 20px;
+            border-top: 2px solid #eee;
+            padding-top: 10px;
+        }
+        #historial-consultas {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <header>
+            <h2>📦 Calculadora de Envíos</h2>
+            <p>Calcula el coste y tiempo de entrega sin recargar la página.</p>
+        </header>
+
+        <section id="shipping-form">
+            <div class="form-group">
+                <label for="peso">Peso del paquete (kg):</label>
+                <input type="number" id="peso" placeholder="Ej: 2.5" min="0.1" step="0.1">
+            </div>
+
+            <div class="form-group">
+                <label for="destino">Destino del envío:</label>
+                <select id="destino">
+                    <option value="">-- Selecciona una zona --</option>
+                    <option value="peninsula">Península (España)</option>
+                    <option value="baleares">Islas Baleares</option>
+                    <option value="canarias">Islas Canarias</option>
+                    <option value="europa">Unión Europea</option>
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button id="btn-calcular" type="button">Calcular Envío</button>
+                <button id="btn-limpiar" type="button">Limpiar Datos</button>
+            </div>
+        </section>
+
+        <div id="mensaje-estado"></div>
+
+        <section id="resultado-area">
+            <h3>Resultado:</h3>
+            <p id="texto-resultado">Introduce los datos para ver el coste.</p>
+        </section>
+
+        <section id="historial-consultas">
+            <h4>Últimas consultas guardadas:</h4>
+            <ul id="lista-historial">
+                </ul>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
